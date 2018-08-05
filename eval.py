@@ -40,7 +40,8 @@ mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 if eval_on_cpu:
   with tf.device("/cpu:0"):
     model = Model()
-    attack = PGDAttack(model, 
+    attack = PGDAttack(model,
+                       config['norm'], 
                        config['epsilon'],
                        config['k'],
                        config['a'],
@@ -49,6 +50,7 @@ if eval_on_cpu:
 else:
   model = Model()
   attack = PGDAttack(model, 
+                     config['norm'],
                      config['epsilon'],
                      config['k'],
                      config['a'],

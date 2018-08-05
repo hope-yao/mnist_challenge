@@ -17,11 +17,12 @@ args = parser.parse_args()
 
 
 class PGDAttack:
-  def __init__(self, model, epsilon, k, a, random_start, loss_func):
+  def __init__(self, model, norm, epsilon, k, a, random_start, loss_func):
     """Attack parameter initialization. The attack performs k steps of
        size a, while always staying within epsilon from the initial
        point."""
     self.model = model
+    self.norm = norm
     self.epsilon = epsilon
     self.k = k
     self.a = a
@@ -105,6 +106,7 @@ if __name__ == '__main__':
 
   model = Model()
   attack = PGDAttack(model,
+                     config['norm'],
                      config['epsilon'],
                      config['k'],
                      config['a'],
