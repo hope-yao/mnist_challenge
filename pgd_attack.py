@@ -70,7 +70,7 @@ class PGDAttack:
           dx_norm = self._l2_norm(dx)
           dx_final_norm = dx_norm.clip(0, self.epsilon)
           x = x_nat + dx_final_norm * dx / dx_norm
-
+      x = np.clip(x, 0, 1)
     return x
 
   @staticmethod
