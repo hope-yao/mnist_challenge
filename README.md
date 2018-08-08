@@ -118,7 +118,7 @@ We would be happy to add a link to your code in our leaderboard.
 The objective of this challenge is to find L2 white-box attacks that are effective against our MNIST model.
 Attacks are allowed to perturb each pixel of the input image as long as the resulting perturbation stays within the L2 ball of radius `epsilon=2.0` centered at the original image.
 
-# (Let me know if you want me to add another sentence with additional motivation here - I couldn't think of what to say)
+**(Let me know if you want me to add another sentence with additional motivation here - I couldn't think of what to say)**
 
 ### The L2 MNIST Model
 
@@ -131,7 +131,7 @@ You can download our model by running `python fetch_model.py secret_l2`.
 We are interested in adversarial inputs that are derived from the MNIST test set.
 This is an L2 attack, so attacks are allowed to perturb each pixel of the input image as long as the L2 distance between the original image and the resulting perturbation does not exceed `epsilon=2.0`.
 
-# (This sounds really wordy, and frankly I'm not sure if it's necessary because the objective is also written above, but I'm following a similar pattern to the Linf description)
+**(This sounds really wordy, and frankly I'm not sure if it's necessary because the objective is also written above, but I'm following a similar pattern to the Linf description)**
 
 ### Submitting an L2 Attack
 
