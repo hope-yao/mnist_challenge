@@ -46,7 +46,7 @@ train_step = tf.train.AdamOptimizer(1e-4).minimize(model.xent,
 
 # Set up adversary
 attack = PGDAttack(model,
-                   config['norm'] 
+                   config['norm'],
                    config['epsilon'],
                    config['k'],
                    config['a'],
