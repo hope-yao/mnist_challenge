@@ -29,7 +29,7 @@ class PGDAttack:
     self.rand = random_start
 
     if loss_func == 'xent':
-      self.loss = model.xent
+      self.loss = model.y_xent
     elif loss_func == 'cw':
       label_mask = tf.one_hot(model.y_input,
                               10,
@@ -41,7 +41,7 @@ class PGDAttack:
       self.loss = -tf.nn.relu(correct_logit - wrong_logit + 50)
     else:
       print('Unknown loss function. Defaulting to cross-entropy')
-      self.loss = model.xent
+      self.loss = model.y_xent
 
     self.grad = tf.gradients(self.loss, model.x_input)[0]
 
@@ -52,6 +52,7 @@ class PGDAttack:
     best_x = x_nat
     best_loss = sess.run(self.loss, feed_dict={self.model.x_input: x_nat,
                                               self.model.y_input: y})
+    best_loss = np.expand_dims(best_loss, 1)
     for it in range(iters):
       if self.rand:
         x = x_nat + np.random.uniform(-self.epsilon, self.epsilon, x_nat.shape)
@@ -79,9 +80,12 @@ class PGDAttack:
 
       new_loss = sess.run(self.loss, feed_dict={self.model.x_input: x,
                                                 self.model.y_input: y})
-      if new_loss > best_loss:
-        best_loss = new_loss
-        best_x = x
+      new_loss = np.expand_dims(new_loss, 1)
+
+      old_mask = np.where(best_loss >= new_loss, 1, 0)
+      new_mask = np.where(new_loss > best_loss, 1, 0)
+      best_x = old_mask * best_x + new_mask * x
+      best_loss = old_mask * best_loss + new_mask * new_loss
 
     return best_x
 
@@ -149,7 +153,7 @@ if __name__ == '__main__':
       x_batch = mnist.test.images[bstart:bend, :]
       y_batch = mnist.test.labels[bstart:bend]
 
-      x_batch_adv = attack.perturb(x_batch, y_batch, sess)
+      x_batch_adv = attack.perturb(x_batch, y_batch, sess, iters=config['random_iters'])
 
       x_adv.append(x_batch_adv)
 
