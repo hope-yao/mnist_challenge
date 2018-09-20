@@ -9,7 +9,7 @@ from __future__ import print_function
 import tensorflow as tf
 
 class Model(object):
-  def __init__(self):
+  def __init__(self, fea_dim=1024):
     self.x_input = tf.placeholder(tf.float32, shape = [None, 784])
     self.y_input = tf.placeholder(tf.int64, shape = [None])
 
@@ -30,29 +30,25 @@ class Model(object):
     h_pool2 = self._max_pool_2x2(h_conv2)
 
     # first fully connected layer
-    W_fc1 = self._weight_variable([7 * 7 * 64, 1024])
+    W_fc1 = self._weight_variable([7 * 7 * 64, fea_dim])
     b_fc1 = self._bias_variable([1024])
 
     h_pool2_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
     # output layer
-    W_fc2 = self._weight_variable([1024,10])
-    b_fc2 = self._bias_variable([10])
+    from cosine_loss import cos_loss
+    self.fea_variables = [W_conv1, b_conv1, W_conv2, b_conv2, W_fc1, b_fc1]
+    self.fea = h_fc1
+    labels = self.y_input
+    NUM_CLASSES = 10
+    total_loss, logits, tmp = cos_loss(self.fea, labels, NUM_CLASSES, alpha=0.0)
+    self.xent = total_loss
+    self.y_pred = tf.arg_max(tf.matmul(tmp['x_feat_norm'], tmp['w_feat_norm']), 1)
+    correct_prediction = tf.cast(tf.equal(self.y_pred, labels), tf.float32)
+    self.num_correct = tf.reduce_sum(correct_prediction)
+    self.accuracy = tf.reduce_mean(correct_prediction)
 
-    self.pre_softmax = tf.matmul(h_fc1, W_fc2) + b_fc2
-
-    y_xent = tf.nn.sparse_softmax_cross_entropy_with_logits(
-        labels=self.y_input, logits=self.pre_softmax)
-
-    self.xent = tf.reduce_sum(y_xent)
-
-    self.y_pred = tf.argmax(self.pre_softmax, 1)
-
-    correct_prediction = tf.equal(self.y_pred, self.y_input)
-
-    self.num_correct = tf.reduce_sum(tf.cast(correct_prediction, tf.int64))
-    self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
   @staticmethod
   def _weight_variable(shape):

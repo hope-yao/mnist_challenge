@@ -16,6 +16,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 from model import Model
 from pgd_attack import LinfPGDAttack
+from fea_matching import FEA_MATCHING
 
 with open('config.json') as config_file:
     config = json.load(config_file)
@@ -27,13 +28,13 @@ max_num_training_steps = config['max_num_training_steps']
 num_output_steps = config['num_output_steps']
 num_summary_steps = config['num_summary_steps']
 num_checkpoint_steps = config['num_checkpoint_steps']
-
+fea_dim = config['fea_dim']
 batch_size = config['training_batch_size']
 
 # Setting up the data and the model
 mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 global_step = tf.contrib.framework.get_or_create_global_step()
-model = Model()
+model = Model(fea_dim)
 
 # Setting up the optimizer
 train_step = tf.train.AdamOptimizer(1e-4).minimize(model.xent,
@@ -46,6 +47,8 @@ attack = LinfPGDAttack(model,
                        config['a'],
                        config['random_start'],
                        config['loss_func'])
+
+fea_matching = FEA_MATCHING(model)
 
 # Setting up the Tensorboard and checkpoint outputs
 model_dir = config['model_dir']
@@ -72,7 +75,7 @@ with tf.Session() as sess:
   # Initialize the summary writer, global variables, and our time counter.
   summary_writer = tf.summary.FileWriter(model_dir, sess.graph)
   sess.run(tf.global_variables_initializer())
-  training_time = 0.0
+  training_time = 0.05
 
   # Main training loop
   for ii in range(max_num_training_steps):
@@ -115,5 +118,8 @@ with tf.Session() as sess:
     # Actual training step
     start = timer()
     sess.run(train_step, feed_dict=adv_dict)
+
+    fea_dict = {model.x_input: np.concatenate([x_batch, x_batch_adv],0)}
+    fea_matching.apply(sess, fea_dict)
     end = timer()
     training_time += end - start

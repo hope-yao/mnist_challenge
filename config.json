@@ -1,10 +1,10 @@
 {
   "_comment": "===== MODEL CONFIGURATION =====",
   "model_dir": "models/a_very_robust_model",
-
+  "fea_dim": 1024,
   "_comment": "===== TRAINING CONFIGURATION =====",
   "random_seed": 4557077,
-  "max_num_training_steps": 100000,
+  "max_num_training_steps": 150000,
   "num_output_steps": 100,
   "num_summary_steps": 100,
   "num_checkpoint_steps": 300,
