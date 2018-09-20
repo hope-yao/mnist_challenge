@@ -14,7 +14,7 @@ class FEA_MATCHING():
                            / tf.norm(self.fea_nat, ord='euclidean', axis=1)\
                            / tf.norm(self.fea_adv, ord='euclidean', axis=1)
         self.loss = tf.reduce_mean(fea_distance)
-        self.train_step = tf.train.AdamOptimizer(1e-4).minimize(self.loss,var_list=model.fea_variables)
+        self.train_step = tf.train.AdamOptimizer(1e-3).minimize(self.loss,var_list=model.fea_variables)
 
     def apply(self, sess, x_batch, x_batch_adv):
         fea_dict = {self.model.x_input: np.concatenate([x_batch, x_batch_adv], 0)}
