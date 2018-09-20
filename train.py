@@ -117,9 +117,7 @@ with tf.Session() as sess:
 
     # Actual training step
     start = timer()
-    sess.run(train_step, feed_dict=adv_dict)
-
-    fea_dict = {model.x_input: np.concatenate([x_batch, x_batch_adv],0)}
-    fea_matching.apply(sess, fea_dict)
+    # sess.run(train_step, feed_dict=adv_dict)
+    fea_matching.apply(sess, x_batch, x_batch_adv)
     end = timer()
     training_time += end - start
