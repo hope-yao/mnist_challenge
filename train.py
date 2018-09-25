@@ -75,7 +75,7 @@ with tf.Session() as sess:
   # Initialize the summary writer, global variables, and our time counter.
   summary_writer = tf.summary.FileWriter(model_dir, sess.graph)
   sess.run(tf.global_variables_initializer())
-  training_time = 0.05
+  training_time = 0.0
 
   # Main training loop
   for ii in range(max_num_training_steps):
@@ -117,7 +117,7 @@ with tf.Session() as sess:
 
     # Actual training step
     start = timer()
-    # sess.run(train_step, feed_dict=adv_dict)
+    sess.run(train_step, feed_dict=adv_dict)
     fea_matching.apply(sess, x_batch, x_batch_adv)
     end = timer()
     training_time += end - start

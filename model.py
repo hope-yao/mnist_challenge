@@ -30,19 +30,23 @@ class Model(object):
     h_pool2 = self._max_pool_2x2(h_conv2)
 
     # first fully connected layer
-    W_fc1 = self._weight_variable([7 * 7 * 64, fea_dim])
-    b_fc1 = self._bias_variable([1024])
+    W_fc0 = self._weight_variable([7 * 7 * 64, 256])
+    b_fc0 = self._bias_variable([256])
+    h_pool0_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64])
+    h_fc0 = tf.nn.relu(tf.matmul(h_pool0_flat, W_fc0) + b_fc0)
 
-    h_pool2_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64])
-    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+    # second fully connected layer
+    W_fc1 = self._weight_variable([256, fea_dim])
+    b_fc1 = self._bias_variable([fea_dim])
+    h_fc1 = tf.nn.relu(tf.matmul(h_fc0, W_fc1) + b_fc1)
 
     # output layer
     from cosine_loss import cos_loss
-    self.fea_variables = [W_conv1, b_conv1, W_conv2, b_conv2, W_fc1, b_fc1]
+    self.fea_variables = [W_conv1, b_conv1, W_conv2, b_conv2, W_fc0, b_fc0, W_fc1, b_fc1]
     self.fea = h_fc1
     labels = self.y_input
     NUM_CLASSES = 10
-    total_loss, logits, tmp = cos_loss(self.fea, labels, NUM_CLASSES, alpha=0.0)
+    total_loss, logits, tmp = cos_loss(self.fea, labels, NUM_CLASSES, alpha=0.05)
     self.xent = total_loss
     self.y_pred = tf.arg_max(tf.matmul(tmp['x_feat_norm'], tmp['w_feat_norm']), 1)
     correct_prediction = tf.cast(tf.equal(self.y_pred, labels), tf.float32)
