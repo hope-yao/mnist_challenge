@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
   from tensorflow.examples.tutorials.mnist import input_data
 
-  from model import Model
+  from model_cosine import Model
 
   with open('config.json') as config_file:
     config = json.load(config_file)

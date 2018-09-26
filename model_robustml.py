@@ -1,11 +1,11 @@
 import robustml
 import tensorflow as tf
 
-import model
+import model_cosine
 
 class Model(robustml.model.Model):
   def __init__(self, sess):
-    self._model = model.Model()
+    self._model = model_cosine.Model()
 
     saver = tf.train.Saver()
     checkpoint = tf.train.latest_checkpoint('models/secret')

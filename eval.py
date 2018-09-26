@@ -13,11 +13,13 @@ import math
 import os
 import sys
 import time
+os.environ['CUDA_DEVICE_ORDER'] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
-from model import Model
+from model_madry import Model
 from pgd_attack import LinfPGDAttack
 
 # Global constants
@@ -28,13 +30,14 @@ eval_batch_size = config['eval_batch_size']
 eval_on_cpu = config['eval_on_cpu']
 
 model_dir = config['model_dir']
+fea_dim = config['fea_dim']
 
 # Set upd the data, hyperparameters, and the model
 mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 
 if eval_on_cpu:
   with tf.device("/cpu:0"):
-    model = Model()
+    model = Model(fea_dim)
     attack = LinfPGDAttack(model, 
                            config['epsilon'],
                            config['k'],
@@ -42,7 +45,7 @@ if eval_on_cpu:
                            config['random_start'],
                            config['loss_func'])
 else:
-  model = Model()
+  model = Model(fea_dim)
   attack = LinfPGDAttack(model, 
                          config['epsilon'],
                          config['k'],
