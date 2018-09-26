@@ -19,30 +19,24 @@ class Model(object):
     W_conv1 = self._weight_variable([5,5,1,32])
     b_conv1 = self._bias_variable([32])
 
-    h_conv1 = tf.nn.relu(self._conv2d(self.x_image, W_conv1) + b_conv1)
+    self.h_conv1 = h_conv1 = tf.nn.relu(self._conv2d(self.x_image, W_conv1) + b_conv1)
     h_pool1 = self._max_pool_2x2(h_conv1)
 
     # second convolutional layer
     W_conv2 = self._weight_variable([5,5,32,64])
     b_conv2 = self._bias_variable([64])
 
-    h_conv2 = tf.nn.relu(self._conv2d(h_pool1, W_conv2) + b_conv2)
+    self.h_conv2 = h_conv2 = tf.nn.relu(self._conv2d(h_pool1, W_conv2) + b_conv2)
     h_pool2 = self._max_pool_2x2(h_conv2)
 
     # first fully connected layer
-    W_fc0 = self._weight_variable([7 * 7 * 64, 256])
-    b_fc0 = self._bias_variable([256])
-    h_pool0_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64])
-    h_fc0 = tf.nn.relu(tf.matmul(h_pool0_flat, W_fc0) + b_fc0)
-
-    # second fully connected layer
-    W_fc1 = self._weight_variable([256, fea_dim])
+    W_fc1 = self._weight_variable([7 * 7 * 64, 256])
     b_fc1 = self._bias_variable([fea_dim])
-    h_fc1 = tf.nn.relu(tf.matmul(h_fc0, W_fc1) + b_fc1)
+    self.fc1 = h_fc1 = tf.nn.relu(tf.matmul(h_pool2, W_fc1) + b_fc1)
 
     # output layer
     from cosine_loss import cos_loss
-    self.fea_variables = [W_conv1, b_conv1, W_conv2, b_conv2, W_fc0, b_fc0, W_fc1, b_fc1]
+    self.fea_variables = [W_conv1, b_conv1, W_conv2, b_conv2, W_fc1, b_fc1]
     self.fea = h_fc1
     labels = self.y_input
     NUM_CLASSES = 10

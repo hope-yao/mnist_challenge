@@ -16,7 +16,6 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 from model_madry import Model
 from pgd_attack import LinfPGDAttack
-from fea_matching import FEA_MATCHING
 
 with open('config.json') as config_file:
     config = json.load(config_file)
@@ -47,8 +46,6 @@ attack = LinfPGDAttack(model,
                        config['a'],
                        config['random_start'],
                        config['loss_func'])
-
-# fea_matching = FEA_MATCHING(model)
 
 # Setting up the Tensorboard and checkpoint outputs
 model_dir = config['model_dir']
@@ -118,6 +115,5 @@ with tf.Session() as sess:
     # Actual training step
     start = timer()
     sess.run(train_step, feed_dict=adv_dict)
-    # fea_matching.apply(sess, x_batch, x_batch_adv)
     end = timer()
     training_time += end - start
