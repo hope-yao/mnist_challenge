@@ -54,6 +54,14 @@ class Model(object):
     self.num_correct = tf.reduce_sum(tf.cast(correct_prediction, tf.int64))
     self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
+  def copy(self, model):
+    for i in range(2):
+    # weights and bias
+        self.variable_conv1[i].assign(model.variable_conv1[i])
+        self.variable_conv2[i].assign(model.variable_conv2[i])
+        self.variable_fc1[i].assign(model.variable_fc1[i])
+        self.variable_fc2[i].assign(model.variable_fc2[i])
+
   @staticmethod
   def _weight_variable(shape):
       initial = tf.truncated_normal(shape, stddev=0.1)

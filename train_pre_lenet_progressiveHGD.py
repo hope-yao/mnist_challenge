@@ -88,22 +88,22 @@ with tf.Session() as sess:
     sess.run(train_step, feed_dict=nat_dict)
     end = timer()
     training_time += end - start
-    if ii == 10000:
-        import copy
-        model_fix = copy.deepcopy(model)
+    if ii == 1000:
+        model_fix =  Model(fea_dim)
+        model_fix = model_fix.copy(model)
 
     if FEA_MATCHING_FLAG:
         # pretrain lenet with cosine distance
-        if ii==10000:
+        if ii==1000:
             fea_matching = init_fea(sess, model,layer_idx='conv1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv1
-        if ii==20000:
+        if ii==2000:
             fea_matching = init_fea(sess, model,layer_idx='conv2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv2
-        if ii==30000:
+        if ii==3000:
             fea_matching = init_fea(sess, model,layer_idx='fc1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.fc1
-        if ii==40000:
+        if ii==4000:
             fea_matching = init_fea(sess, model,layer_idx='fc2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.pre_softmax
 

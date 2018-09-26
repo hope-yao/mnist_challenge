@@ -1,6 +1,7 @@
 {
   "_comment": "===== MODEL CONFIGURATION =====",
-  "model_dir": "models/a_very_robust_model",
+  "model_dir": "models/pretrained_lenet_cosine_prgressiveHGD",
+  "model_dir0": "models/a_very_robust_model",
   "fea_dim": 1024,
   "_comment": "===== TRAINING CONFIGURATION =====",
   "random_seed": 4557077,
