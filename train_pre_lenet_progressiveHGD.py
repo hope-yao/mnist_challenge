@@ -36,7 +36,8 @@ batch_size = config['training_batch_size']
 # Setting up the data and the model
 mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 global_step = tf.contrib.framework.get_or_create_global_step()
-model = Model(fea_dim)
+with tf.name_scope('model_rob') as scope:
+    model = Model(fea_dim)
 
 # Setting up the optimizer
 train_step = tf.train.AdamOptimizer(1e-4).minimize(model.xent,
@@ -88,22 +89,24 @@ with tf.Session() as sess:
     sess.run(train_step, feed_dict=nat_dict)
     end = timer()
     training_time += end - start
-    if ii == 1000:
-        model_fix =  Model(fea_dim)
-        model_fix = model_fix.copy(model)
+    if ii == 10000:
+        with tf.name_scope('model_fix') as scope:
+            model_fix = Model(fea_dim)
+            sess.run(tf.variables_initializer(model_fix.all_variables))
+            model_fix.copy(model)
 
     if FEA_MATCHING_FLAG:
         # pretrain lenet with cosine distance
-        if ii==1000:
+        if ii==10000:
             fea_matching = init_fea(sess, model,layer_idx='conv1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv1
-        if ii==2000:
+        if ii==20000:
             fea_matching = init_fea(sess, model,layer_idx='conv2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv2
-        if ii==3000:
+        if ii==30000:
             fea_matching = init_fea(sess, model,layer_idx='fc1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.fc1
-        if ii==4000:
+        if ii==40000:
             fea_matching = init_fea(sess, model,layer_idx='fc2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.pre_softmax
 
@@ -116,7 +119,7 @@ with tf.Session() as sess:
                     model.y_input: y_batch}
         if ii >= 10000:
             # progressive feature matching
-            fea_hinge = sess.run(model_fix.fea_hinge, nat_dict)
+            fea_hinge = sess.run(model_fix.fea_hinge, {model_fix.x_input: x_batch})
             fea_matching.apply(sess, x_batch, x_batch_adv, fea_hinge)
 
     # Output to stdout

@@ -16,29 +16,29 @@ class Model(object):
     self.x_image = tf.reshape(self.x_input, [-1, 28, 28, 1])
 
     # first convolutional layer
-    W_conv1 = self._weight_variable([5,5,1,32])
-    b_conv1 = self._bias_variable([32])
+    W_conv1 = self._weight_variable([5,5,1,32], name='W_conv1')
+    b_conv1 = self._bias_variable([32], name='b_conv1')
     self.variable_conv1 = [W_conv1, b_conv1]
     self.h_conv1 = h_conv1 = tf.nn.relu(self._conv2d(self.x_image, W_conv1) + b_conv1)
     h_pool1 = self._max_pool_2x2(h_conv1)
 
     # second convolutional layer
-    W_conv2 = self._weight_variable([5,5,32,64])
-    b_conv2 = self._bias_variable([64])
+    W_conv2 = self._weight_variable([5,5,32,64], name='W_conv2')
+    b_conv2 = self._bias_variable([64], name='b_conv2')
     self.variable_conv2 = [W_conv2, b_conv2]
     self.h_conv2 = h_conv2 = tf.nn.relu(self._conv2d(h_pool1, W_conv2) + b_conv2)
     h_pool2 = self._max_pool_2x2(h_conv2)
 
     # first fully connected layer
-    W_fc1 = self._weight_variable([7 * 7 * 64, fea_dim])
-    b_fc1 = self._bias_variable([fea_dim])
+    W_fc1 = self._weight_variable([7 * 7 * 64, fea_dim], name='W_fc1')
+    b_fc1 = self._bias_variable([fea_dim], name='b_fc1')
     self.variable_fc1 = [W_fc1, b_fc1]
     h_pool2_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64])
     self.fc1 = h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
     # output layer
-    W_fc2 = self._weight_variable([1024,10])
-    b_fc2 = self._bias_variable([10])
+    W_fc2 = self._weight_variable([1024,10], name='W_fc2')
+    b_fc2 = self._bias_variable([10], name='b_fc2')
     self.variable_fc2 = [W_fc2, b_fc2]
     self.pre_softmax = tf.matmul(h_fc1, W_fc2) + b_fc2
 
@@ -53,24 +53,25 @@ class Model(object):
 
     self.num_correct = tf.reduce_sum(tf.cast(correct_prediction, tf.int64))
     self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    self.all_variables = self.variable_conv1 + self.variable_conv2 + self.variable_fc1 + self.variable_fc2
 
   def copy(self, model):
     for i in range(2):
     # weights and bias
-        self.variable_conv1[i].assign(model.variable_conv1[i])
-        self.variable_conv2[i].assign(model.variable_conv2[i])
-        self.variable_fc1[i].assign(model.variable_fc1[i])
-        self.variable_fc2[i].assign(model.variable_fc2[i])
+        tf.assign(self.variable_conv1[i], model.variable_conv1[i])
+        tf.assign(self.variable_conv2[i], model.variable_conv2[i])
+        tf.assign(self.variable_fc1[i], model.variable_fc1[i])
+        tf.assign(self.variable_fc2[i], model.variable_fc2[i])
 
   @staticmethod
-  def _weight_variable(shape):
+  def _weight_variable(shape, name):
       initial = tf.truncated_normal(shape, stddev=0.1)
-      return tf.Variable(initial)
+      return tf.Variable(initial, name=name)
 
   @staticmethod
-  def _bias_variable(shape):
+  def _bias_variable(shape, name):
       initial = tf.constant(0.1, shape = shape)
-      return tf.Variable(initial)
+      return tf.Variable(initial, name=name)
 
   @staticmethod
   def _conv2d(x, W):

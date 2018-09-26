@@ -6,7 +6,7 @@ class FEA_MATCHING():
         self.distance_flag = distance_flag
         self.x_input = x_input
         self.fea_nat, self.fea_adv = tf.split(fea, 2)
-        self.fea_nat_hinge = tf.placeholder(tf.float32, self.fea_nat.get_shape().to_list())
+        self.fea_nat_hinge = tf.placeholder(tf.float32, self.fea_nat.get_shape().as_list(), name='fea_nat_hinge')
         if distance_flag=='cosine':
             # using Cosine distance measurement
             fea_nat = tf.contrib.layers.flatten(self.fea_nat)
@@ -24,8 +24,8 @@ class FEA_MATCHING():
             fea_nat_hinge = tf.contrib.layers.flatten(self.fea_nat_hinge)
             if distance_flag == 'L_inf':
                 # using L_inf distance measurement
-                match_loss = tf.reduce_max(tf.abs(fea_adv - fea_nat_hinge))
-                hinge_loss = tf.reduce_max(tf.abs(fea_nat - fea_nat_hinge))
+                match_loss = tf.reduce_max(tf.abs(fea_adv - fea_nat_hinge), 1)
+                hinge_loss = tf.reduce_max(tf.abs(fea_nat - fea_nat_hinge), 1)
                 # fea_distance = tf.norm(self.fea_nat - self.fea_adv, ord='np.inf', axis=1)
             elif distance_flag == 'L_1':
                 # using L_1 distance measurement
@@ -38,7 +38,7 @@ class FEA_MATCHING():
             else:
                 return 0
             alpha = 1.0
-            self.loss = match_loss + alpha * tf.reduce_mean(hinge_loss)
+            self.loss = tf.reduce_mean(match_loss) + alpha * tf.reduce_mean(hinge_loss)
         self.train_step = tf.train.AdamOptimizer(1e-4).minimize(self.loss,var_list=fea_variables)
 
     def cos_dist(self, x, y):
@@ -48,12 +48,10 @@ class FEA_MATCHING():
                        / (tf.norm(y, ord='euclidean', axis=1) + 1e-8)
         return cos_dist
 
-    def apply(self, sess, x_batch, x_batch_adv, nat_fea_fix=None):
-        if nat_fea_fix:
-            fea_dict = {self.x_input: np.concatenate([x_batch, x_batch_adv], 0),
-                        self.fea_nat_fix: nat_fea_fix}
-        else:
-            fea_dict = {self.x_input: np.concatenate([x_batch, x_batch_adv], 0)}
+    def apply(self, sess, x_batch, x_batch_adv, nat_fea_fix):
+        fea_dict = {self.x_input: np.concatenate([x_batch, x_batch_adv], 0),
+                    self.fea_nat_hinge: nat_fea_fix}
+        # fea_dict = {self.x_input: np.concatenate([x_batch, x_batch_adv], 0)}
         sess.run(self.train_step, fea_dict)
 
 
