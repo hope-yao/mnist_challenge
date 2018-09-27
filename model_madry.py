@@ -55,13 +55,13 @@ class Model(object):
     self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     self.all_variables = self.variable_conv1 + self.variable_conv2 + self.variable_fc1 + self.variable_fc2
 
-  def copy(self, model):
+  def copy(self, sess, model):
     for i in range(2):
     # weights and bias
-        tf.assign(self.variable_conv1[i], model.variable_conv1[i])
-        tf.assign(self.variable_conv2[i], model.variable_conv2[i])
-        tf.assign(self.variable_fc1[i], model.variable_fc1[i])
-        tf.assign(self.variable_fc2[i], model.variable_fc2[i])
+      sess.run(tf.assign(self.variable_conv1[i], model.variable_conv1[i]))
+      sess.run(tf.assign(self.variable_conv2[i], model.variable_conv2[i]))
+      sess.run(tf.assign(self.variable_fc1[i], model.variable_fc1[i]))
+      sess.run(tf.assign(self.variable_fc2[i], model.variable_fc2[i]))
 
   @staticmethod
   def _weight_variable(shape, name):

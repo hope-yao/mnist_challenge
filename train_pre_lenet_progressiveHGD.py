@@ -89,24 +89,24 @@ with tf.Session() as sess:
     sess.run(train_step, feed_dict=nat_dict)
     end = timer()
     training_time += end - start
-    if ii == 10000:
+    if ii == 100:
         with tf.name_scope('model_fix') as scope:
             model_fix = Model(fea_dim)
             sess.run(tf.variables_initializer(model_fix.all_variables))
-            model_fix.copy(model)
+            model_fix.copy(sess, model)
 
     if FEA_MATCHING_FLAG:
         # pretrain lenet with cosine distance
-        if ii==10000:
+        if ii==100:
             fea_matching = init_fea(sess, model,layer_idx='conv1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv1
-        if ii==20000:
+        if ii==200:
             fea_matching = init_fea(sess, model,layer_idx='conv2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv2
-        if ii==30000:
+        if ii==300:
             fea_matching = init_fea(sess, model,layer_idx='fc1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.fc1
-        if ii==40000:
+        if ii==400:
             fea_matching = init_fea(sess, model,layer_idx='fc2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.pre_softmax
 
@@ -117,7 +117,7 @@ with tf.Session() as sess:
         training_time += end - start
         adv_dict = {model.x_input: x_batch_adv,
                     model.y_input: y_batch}
-        if ii >= 10000:
+        if ii >= 100:
             # progressive feature matching
             fea_hinge = sess.run(model_fix.fea_hinge, {model_fix.x_input: x_batch})
             fea_matching.apply(sess, x_batch, x_batch_adv, fea_hinge)
