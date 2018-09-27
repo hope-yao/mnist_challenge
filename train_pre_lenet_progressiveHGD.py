@@ -63,7 +63,7 @@ if not os.path.exists(model_dir):
 # - train of different runs
 # - eval of different runs
 
-saver = tf.train.Saver(max_to_keep=3)
+saver = tf.train.Saver()
 tf.summary.scalar('accuracy adv train', model.accuracy)
 tf.summary.scalar('accuracy adv', model.accuracy)
 tf.summary.scalar('xent adv train', model.xent / batch_size)
@@ -101,15 +101,19 @@ with tf.Session() as sess:
     if FEA_MATCHING_FLAG:
         # pretrain lenet with cosine distance
         if ii==10000:
+            saver.save(sess,os.path.join(model_dir, 'pre_layer1'),global_step=global_step)
             fea_matching = init_fea(sess, model,layer_idx='conv1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv1
         if ii==20000:
+            saver.save(sess,os.path.join(model_dir, 'pre_layer2'),global_step=global_step)
             fea_matching = init_fea(sess, model,layer_idx='conv2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv2
         if ii==30000:
+            saver.save(sess,os.path.join(model_dir, 'pre_layer3'),global_step=global_step)
             fea_matching = init_fea(sess, model,layer_idx='fc1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.fc1
         if ii==40000:
+            saver.save(sess,os.path.join(model_dir, 'pre_layer4'),global_step=global_step)
             fea_matching = init_fea(sess, model,layer_idx='fc2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.pre_softmax
 
