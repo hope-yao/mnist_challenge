@@ -72,6 +72,8 @@ merged_summaries = tf.summary.merge_all()
 
 shutil.copy('config.json', model_dir)
 
+hist_hinge_loss_value = []
+hist_match_loss_value = []
 with tf.Session() as sess:
   # Initialize the summary writer, global variables, and our time counter.
   summary_writer = tf.summary.FileWriter(model_dir, sess.graph)
@@ -89,7 +91,7 @@ with tf.Session() as sess:
     sess.run(train_step, feed_dict=nat_dict)
     end = timer()
     training_time += end - start
-    if ii == 100:
+    if ii == 10000:
         with tf.name_scope('model_fix') as scope:
             model_fix = Model(fea_dim)
             sess.run(tf.variables_initializer(model_fix.all_variables))
@@ -97,19 +99,33 @@ with tf.Session() as sess:
 
     if FEA_MATCHING_FLAG:
         # pretrain lenet with cosine distance
-        if ii==100:
+        if ii==10000:
             fea_matching = init_fea(sess, model,layer_idx='conv1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv1
-        if ii==200:
+        if ii==20000:
             fea_matching = init_fea(sess, model,layer_idx='conv2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.h_conv2
-        if ii==300:
+        if ii==30000:
             fea_matching = init_fea(sess, model,layer_idx='fc1', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.fc1
-        if ii==400:
+        if ii==40000:
             fea_matching = init_fea(sess, model,layer_idx='fc2', distance_flag='L_inf')
             model_fix.fea_hinge = model_fix.pre_softmax
 
+        if ii >= 10000:
+            # Compute Adversarial Perturbations
+            start = timer()
+            x_batch_adv = attack.perturb(x_batch, y_batch, sess)
+            end = timer()
+            training_time += end - start
+            adv_dict = {model.x_input: x_batch_adv,
+                        model.y_input: y_batch}
+            # progressive feature matching
+            fea_hinge = sess.run(model_fix.fea_hinge, {model_fix.x_input: x_batch})
+            fea_matching.apply(sess, x_batch, x_batch_adv, fea_hinge)
+
+    # Output to stdout
+    if ii % num_output_steps == 0:
         # Compute Adversarial Perturbations
         start = timer()
         x_batch_adv = attack.perturb(x_batch, y_batch, sess)
@@ -117,21 +133,21 @@ with tf.Session() as sess:
         training_time += end - start
         adv_dict = {model.x_input: x_batch_adv,
                     model.y_input: y_batch}
-        if ii >= 100:
-            # progressive feature matching
+        nat_acc = sess.run(model.accuracy, feed_dict=nat_dict)
+        adv_acc = sess.run(model.accuracy, feed_dict=adv_dict)
+        print('Step {}:    ({})'.format(ii, datetime.now()))
+        print('    training nat accuracy {:.4}%'.format(nat_acc * 100))
+        print('    training adv accuracy {:.4}%'.format(adv_acc * 100))
+        if ii>10000:
             fea_hinge = sess.run(model_fix.fea_hinge, {model_fix.x_input: x_batch})
-            fea_matching.apply(sess, x_batch, x_batch_adv, fea_hinge)
-
-    # Output to stdout
-    if ii % num_output_steps == 0:
-      nat_acc = sess.run(model.accuracy, feed_dict=nat_dict)
-      adv_acc = sess.run(model.accuracy, feed_dict=adv_dict)
-      print('Step {}:    ({})'.format(ii, datetime.now()))
-      print('    training nat accuracy {:.4}%'.format(nat_acc * 100))
-      print('    training adv accuracy {:.4}%'.format(adv_acc * 100))
-      if ii != 0:
-        print('    {} examples per second'.format(
-            num_output_steps * batch_size / training_time))
+            hinge_loss_value, match_loss_value = fea_matching.get_loss_value(sess, x_batch, x_batch_adv, fea_hinge)
+            hist_hinge_loss_value += [hinge_loss_value]
+            hist_match_loss_value += [match_loss_value]
+            print('    training hinge loss {:.4}%'.format(hinge_loss_value))
+            print('    training match loss {:.4}%'.format(match_loss_value))
+        if ii != 0:
+            print('    {} examples per second'.format(
+                num_output_steps * batch_size / training_time))
         training_time = 0.0
     # Tensorboard summaries
     if ii % num_summary_steps == 0:

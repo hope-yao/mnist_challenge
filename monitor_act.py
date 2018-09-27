@@ -44,6 +44,7 @@ plt.axis([-0.1,4.1,0,3])
 
 # plot out activation
 import matplotlib.pyplot as plt
+fea_hinge = sess.run(model_fix.h_conv1, {model_fix.x_input: x_batch})
 aa = np.zeros((28*4,28*8))
 for i in range(4):
     for j in range(8):

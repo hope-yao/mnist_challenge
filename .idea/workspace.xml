@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85332cc7-8d3f-4146-96f3-b8362a30506a" name="Default" comment="">
+    <list default="true" id="85332cc7-8d3f-4146-96f3-b8362a30506a" name="Default" comment="fixed another copy bug, going to deploy on exx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/model_madry.py" afterPath="$PROJECT_DIR$/model_madry.py" />
+      <change beforePath="$PROJECT_DIR$/fea_matching.py" afterPath="$PROJECT_DIR$/fea_matching.py" />
+      <change beforePath="$PROJECT_DIR$/monitor_act.py" afterPath="$PROJECT_DIR$/monitor_act.py" />
       <change beforePath="$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py" afterPath="$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +22,8 @@
       <file leaf-file-name="train_pre_lenet_progressiveHGD.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="89" column="17" lean-forward="true" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="17" />
+            <state relative-caret-position="362">
+              <caret line="143" column="54" lean-forward="false" selection-start-line="143" selection-start-column="54" selection-end-line="143" selection-end-column="54" />
               <folding>
                 <element signature="e#85#123#0" expanded="true" />
               </folding>
@@ -43,8 +44,18 @@
       <file leaf-file-name="monitor_act.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/monitor_act.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="61" column="14" lean-forward="false" selection-start-line="51" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
+            <state relative-caret-position="278">
+              <caret line="52" column="14" lean-forward="false" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fea_matching.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fea_matching.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="55" column="69" lean-forward="false" selection-start-line="55" selection-start-column="69" selection-end-line="55" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -61,7 +72,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>epsilon</find>
       <find>1000</find>
       <find>num_correct</find>
       <find>logits</find>
@@ -77,7 +87,6 @@
       <find>fea</find>
       <find>max_to_keep</find>
       <find>fea_dim</find>
-      <find>fea_matching</find>
       <find>sess</find>
       <find>axis</find>
       <find>Initialize</find>
@@ -91,6 +100,8 @@
       <find>step</find>
       <find>variable_conv1</find>
       <find>model</find>
+      <find>fea_matching</find>
+      <find>match_loss</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -107,9 +118,9 @@
         <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/model_cosine.py" />
         <option value="$PROJECT_DIR$/config.json" />
-        <option value="$PROJECT_DIR$/fea_matching.py" />
-        <option value="$PROJECT_DIR$/monitor_act.py" />
         <option value="$PROJECT_DIR$/model_madry.py" />
+        <option value="$PROJECT_DIR$/monitor_act.py" />
+        <option value="$PROJECT_DIR$/fea_matching.py" />
         <option value="$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py" />
       </list>
     </option>
@@ -330,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538006005700</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fixed another copy bug, going to deploy on exx">
+      <created>1538008696468</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1538008696468</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -355,7 +373,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31075698" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32868525" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43525895" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3934263" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14754099" sideWeight="0.29360464" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -401,14 +419,15 @@
     <MESSAGE value="progressive HGD with pre-trained lenet" />
     <MESSAGE value="fixed a copy bug, going to deploy on exx" />
     <MESSAGE value="fixed some other copy bugs, going to deploy on exx" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed some other copy bugs, going to deploy on exx" />
+    <MESSAGE value="fixed another copy bug, going to deploy on exx" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed another copy bug, going to deploy on exx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/fea_matching.py</url>
-          <line>14</line>
+          <line>16</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -416,29 +435,109 @@
           <line>77</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py</url>
+          <line>97</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="34" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
-        <expression-string>sess.run(model_fix.variable_conv1[0])-sess.run(model.variable_conv1[0])</expression-string>
+        <expression-string># plot out activation
+import matplotlib.pyplot as plt
+fea_hinge = sess.run(model_fix.h_conv2, {model_fix.x_input: x_batch})
+aa = np.zeros((14*4,14*8))
+for i in range(4):
+    for j in range(8):
+        aa[14*i:14*(i+1), 14*j:14*(j+1)] = fea_hinge[0,:,:,8*i+j]
+plt.figure()
+plt.imshow(aa)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>with tf.Session() as sess:
-    model_fix.copy(sess, model)</expression-string>
+        <expression-string># plot out activation
+import matplotlib.pyplot as plt
+fea_hinge = sess.run(model_fix.h_conv2, {model_fix0.x_input: x_batch})
+aa = np.zeros((14*4,14*8))
+for i in range(4):
+    for j in range(8):
+        aa[14*i:14*(i+1), 14*j:14*(j+1)] = fea_hinge[0,:,:,8*i+j]
+plt.figure()
+plt.imshow(aa)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>model_fix.copy(model)</expression-string>
+        <expression-string># plot out activation
+import matplotlib.pyplot as plt
+fea_hinge = sess.run(model_fix0.h_conv2, {model_fix0.x_input: x_batch})
+aa = np.zeros((14*4,14*8))
+for i in range(4):
+    for j in range(8):
+        aa[14*i:14*(i+1), 14*j:14*(j+1)] = fea_hinge[0,:,:,8*i+j]
+plt.figure()
+plt.imshow(aa)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string># plot out activation
+import matplotlib.pyplot as plt
+fea_hinge = sess.run(model_fix0.h_conv2, {model_fix0.x_input: x_batch})
+aa = np.zeros((28*4,28*8))
+for i in range(4):
+    for j in range(8):
+        aa[28*i:28*(i+1), 28*j:28*(j+1)] = fea_hinge[0,:,:,8*i+j]
+plt.figure()
+plt.imshow(aa)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string># plot out activation
+import matplotlib.pyplot as plt
+fea_hinge = sess.run(model_fix0.h_conv1, {model_fix0.x_input: x_batch})
+aa = np.zeros((28*4,28*8))
+for i in range(4):
+    for j in range(8):
+        aa[28*i:28*(i+1), 28*j:28*(j+1)] = fea_hinge[0,:,:,8*i+j]
+plt.figure()
+plt.imshow(aa)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string># plot out activation
+import matplotlib.pyplot as plt
+fea_hinge = sess.run(model_fix.h_conv1, {model_fix.x_input: x_batch})
+aa = np.zeros((28*4,28*8))
+for i in range(4):
+    for j in range(8):
+        aa[28*i:28*(i+1), 28*j:28*(j+1)] = fea_hinge[0,:,:,8*i+j]
+plt.figure()
+plt.imshow(aa)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string># plot out filter
+filter = sess.run(model_fix0.variable_conv1[0])
+import matplotlib.pyplot as plt
+aa = np.zeros((5*4,5*8))
+for i in range(4):
+    for j in range(8):
+        aa[5*i:5*(i+1), 5*j:5*(j+1)] = filter[:,:,0,8*i+j]
+plt.figure()
+plt.imshow(aa)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -469,33 +568,8 @@ plt.imshow(aa)</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>sess.run(model_fix.accuracy, feed_dict={model_fix.x_input: x_batch,
-                                        model_fix.y_input: y_batch})</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sess.run(model.accuracy, feed_dict={model.x_input: x_batch,
-                                        model.y_input: y_batch})</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string># plot out activation
-fea_hinge = sess.run(model.h_conv1, {model.x_input: x_batch_adv})
-import matplotlib.pyplot as plt
-aa = np.zeros((28*4,28*8))
-for i in range(4):
-    for j in range(8):
-        aa[28*i:28*(i+1), 28*j:28*(j+1)] = fea_hinge[0,:,:,8*i+j]
-plt.figure()
-plt.imshow(aa)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sess.run(model_fix.accuracy, feed_dict={model_fix.x_input: x_batch_adv,
-                                        model_fix.y_input: y_batch})</expression-string>
+        <expression-string>model_fix0 = Model(fea_dim)
+sess.run(tf.variables_initializer(model_fix0.all_variables))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -682,14 +756,6 @@ plt.imshow(aa)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/client/session.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="1151" column="0" lean-forward="false" selection-start-line="1151" selection-start-column="0" selection-end-line="1151" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model_robustml.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -714,22 +780,6 @@ plt.imshow(aa)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="1071" column="0" lean-forward="false" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fea_matching.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="8" column="111" lean-forward="false" selection-start-line="8" selection-start-column="111" selection-end-line="8" selection-end-column="111" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train_fea_matching.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -748,10 +798,10 @@ plt.imshow(aa)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/monitor_act.py">
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/client/session.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="61" column="14" lean-forward="false" selection-start-line="51" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
+        <state relative-caret-position="178">
+          <caret line="1120" column="0" lean-forward="false" selection-start-line="1120" selection-start-column="0" selection-end-line="1120" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -764,10 +814,34 @@ plt.imshow(aa)</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="1071" column="0" lean-forward="false" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/monitor_act.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="52" column="14" lean-forward="false" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fea_matching.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="55" column="69" lean-forward="false" selection-start-line="55" selection-start-column="69" selection-end-line="55" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="89" column="17" lean-forward="true" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="17" />
+        <state relative-caret-position="362">
+          <caret line="143" column="54" lean-forward="false" selection-start-line="143" selection-start-column="54" selection-end-line="143" selection-end-column="54" />
           <folding>
             <element signature="e#85#123#0" expanded="true" />
           </folding>
