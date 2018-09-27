@@ -52,10 +52,11 @@ attack = LinfPGDAttack(model,
                        config['loss_func'])
 
 # Setting up the Tensorboard and checkpoint outputs
-model_dir = "models/pretrained_lenet_cosine_prgressiveHGD"#config['model_dir']
+model_dir = config['model_dir']
 if not os.path.exists(model_dir):
-  os.makedirs(model_dir)
-
+    os.makedirs(model_dir)
+    os.system("cp *.py {}".format(model_dir))
+    os.system("cp *.json {}".format(model_dir))
 # We add accuracy and xent twice so we can easily make three types of
 # comparisons in Tensorboard:
 # - train vs eval (for a single run)
@@ -143,8 +144,9 @@ with tf.Session() as sess:
             hinge_loss_value, match_loss_value = fea_matching.get_loss_value(sess, x_batch, x_batch_adv, fea_hinge)
             hist_hinge_loss_value += [hinge_loss_value]
             hist_match_loss_value += [match_loss_value]
-            print('    training hinge loss {:.4}%'.format(hinge_loss_value))
-            print('    training match loss {:.4}%'.format(match_loss_value))
+            print('    training hinge loss {:.4}'.format(hinge_loss_value))
+            print('    training match loss {:.4}'.format(match_loss_value))
+            np.save('fea_loss',{"match_loss": match_loss_value, "hinge_loss": hinge_loss_value})
         if ii != 0:
             print('    {} examples per second'.format(
                 num_output_steps * batch_size / training_time))

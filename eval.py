@@ -36,22 +36,24 @@ fea_dim = config['fea_dim']
 mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 
 if eval_on_cpu:
-  with tf.device("/cpu:0"):
-    model = Model(fea_dim)
-    attack = LinfPGDAttack(model, 
-                           config['epsilon'],
-                           config['k'],
-                           config['a'],
-                           config['random_start'],
-                           config['loss_func'])
+    with tf.device("/cpu:0"):
+        with tf.name_scope('model_rob') as scope:
+            model = Model(fea_dim)
+            attack = LinfPGDAttack(model,
+                                   config['epsilon'],
+                                   config['k'],
+                                   config['a'],
+                                   config['random_start'],
+                                   config['loss_func'])
 else:
-  model = Model(fea_dim)
-  attack = LinfPGDAttack(model, 
-                         config['epsilon'],
-                         config['k'],
-                         config['a'],
-                         config['random_start'],
-                         config['loss_func'])
+    with tf.name_scope('model_rob') as scope:
+        model = Model(fea_dim)
+        attack = LinfPGDAttack(model,
+                            config['epsilon'],
+                            config['k'],
+                            config['a'],
+                            config['random_start'],
+                            config['loss_func'])
 
 global_step = tf.contrib.framework.get_or_create_global_step()
 

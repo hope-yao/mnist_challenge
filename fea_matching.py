@@ -2,8 +2,8 @@ import numpy as np
 import tensorflow as tf
 
 class FEA_MATCHING():
-    def __init__(self, x_input, fea, fea_variables, distance_flag):
-
+    def __init__(self, x_input, fea, fea_variables, distance_flag, alpha = 1.0):
+        self.alpha = alpha
         self.distance_flag = distance_flag
         self.x_input = x_input
         self.fea_nat, self.fea_adv = tf.split(fea, 2)
@@ -32,8 +32,7 @@ class FEA_MATCHING():
                 self.hinge_loss = tf.norm(fea_nat - fea_nat_hinge, ord=2, axis=1)
             else:
                 return 0
-            alpha = 1.0
-        self.loss = tf.reduce_mean(self.match_loss) + alpha * tf.reduce_mean(self.hinge_loss)
+        self.loss = self.alpha * tf.reduce_mean(self.match_loss) + tf.reduce_mean(self.hinge_loss)
         self.train_step = tf.train.AdamOptimizer(1e-4).minimize(self.loss,var_list=fea_variables)
 
     def cos_dist(self, x, y):
@@ -53,7 +52,7 @@ class FEA_MATCHING():
         fea_dict = {self.x_input: np.concatenate([x_batch, x_batch_adv], 0),
                     self.fea_nat_hinge: nat_fea_fix}
         hinge_loss, match_loss = sess.run([self.hinge_loss, self.match_loss], fea_dict)
-        return tf.reduce_mean(hinge_loss), tf.reduce_mean(match_loss)
+        return np.mean(hinge_loss), np.mean(match_loss)
 
 def init_fea(sess, model, layer_idx, distance_flag):
     tmp = tf.all_variables()
