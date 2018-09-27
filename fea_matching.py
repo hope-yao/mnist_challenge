@@ -14,19 +14,22 @@ class FEA_MATCHING():
         self.train_layer = {}
 
         self.tag_list = ['conv1', 'conv2', 'fc1', 'fc2']
-        self.fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2, model_fix.h_fc1, model_fix.pre_softmax]
-        self.fea_list = [model.h_conv1, model.h_conv2, model.h_fc1, model.pre_softmax]
-        self.fea_var_list = [model.variable_conv1, model.variable_conv2, model.variable_fc1, model.variable_fc2]
+        fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2, model_fix.h_fc1, model_fix.pre_softmax]
+        self.fix_fea_dict = dict(zip(self.tag_list, fix_fea_list))
+        fea_list = [model.h_conv1, model.h_conv2, model.h_fc1, model.pre_softmax]
+        self.fea_dict = dict(zip(self.tag_list, fea_list))
+        fea_var_list = [model.variable_conv1, model.variable_conv2, model.variable_fc1, model.variable_fc2]
+        self.fea_var_dict = dict(zip(self.tag_list, fea_var_list))
 
-        for i, [fea, fea_var] in enumerate(zip(self.fea_list, self.fea_var_list)):
-            fea_nat, fea_adv = tf.split(fea, 2)
+        for i, tag_i in enumerate(self.tag_list):
+            fea_nat, fea_adv = tf.split(self.fea_dict[tag_i], 2)
             self.fea_nat_hinge[self.tag_list[i]] = fea_nat_hinge_i = tf.placeholder(tf.float32, fea_nat.get_shape().as_list(), name='fea_nat_hinge')
             fea_nat_vec = tf.contrib.layers.flatten(fea_nat)
             fea_adv_vec = tf.contrib.layers.flatten(fea_adv)
             fea_nat_hinge_vec = tf.contrib.layers.flatten(fea_nat_hinge_i)
             match_loss, hinge_loss = self.get_loss(fea_nat_vec, fea_adv_vec, fea_nat_hinge_vec, distance_flag)
             loss = self.alpha * tf.reduce_mean(match_loss) + tf.reduce_mean(hinge_loss)
-            train_layer = tf.train.AdamOptimizer(1e-4).minimize(loss,var_list=fea_var)
+            train_layer = tf.train.AdamOptimizer(1e-4).minimize(loss,var_list=self.fea_var_dict[tag_i])
             self.match_loss[self.tag_list[i]] = match_loss
             self.hinge_loss[self.tag_list[i]] = hinge_loss
             self.train_layer[self.tag_list[i]] = train_layer
@@ -62,19 +65,18 @@ class FEA_MATCHING():
                        / (tf.norm(y, ord='euclidean', axis=1) + 1e-8)
         return cos_dist
 
-    def apply(self, sess, x_batch, x_batch_adv):
-        for i, tag_i in enumerate(self.tag_list):
-            nat_fea_fix = sess.run(self.fix_fea_list[i], {self.model_fix_input: x_batch})
-            fea_dict = {self.model_input: np.concatenate([x_batch, x_batch_adv], 0),
-                        self.fea_nat_hinge[tag_i]: nat_fea_fix}
-            for j in range(10): # every mini batch will take 10 steps
-                sess.run(self.train_layer[tag_i], fea_dict)
+    def apply(self, sess, x_batch_nat, x_batch_adv, tag_i):
+
+        nat_fea_fix = sess.run(self.fix_fea_dict[tag_i], {self.model_fix_input: x_batch_nat})
+        fea_dict = {self.model_input: np.concatenate([x_batch_nat, x_batch_adv], 0),
+                    self.fea_nat_hinge[tag_i]: nat_fea_fix}
+        sess.run(self.train_layer[tag_i], fea_dict)
 
     def get_loss_value(self, sess, x_batch, x_batch_adv):
         hinge_loss_val = {}
         match_loss_val = {}
         for i, tag_i  in enumerate(self.tag_list):
-            nat_fea_fix = sess.run(self.fix_fea_list[i], {self.model_fix_input: x_batch})
+            nat_fea_fix = sess.run(self.fix_fea_dict[tag_i], {self.model_fix_input: x_batch})
             fea_dict = {self.model_input: np.concatenate([x_batch, x_batch_adv], 0),
                         self.fea_nat_hinge[tag_i]: nat_fea_fix}
             hinge_loss_val[tag_i] = sess.run(self.hinge_loss[tag_i], fea_dict)
