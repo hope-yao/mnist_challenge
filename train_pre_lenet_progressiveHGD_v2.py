@@ -107,21 +107,26 @@ with tf.Session() as sess:
 
     # Compute Adversarial Perturbations
     num_adv_batch = 100000
-    x_pool_nat = np.zeros((num_adv_batch*batch_size, 784))
-    x_pool_adv = np.zeros((num_adv_batch*batch_size, 784))
-    y_pool = np.zeros((num_adv_batch*batch_size))
-    start = timer()
-    for ii in tqdm(range(num_adv_batch)):
-        x_batch, y_batch = mnist.train.next_batch(batch_size)
-        x_batch_adv = attack.perturb(x_batch, y_batch, sess)
-        x_pool_nat[ii*batch_size:(ii+1)*batch_size] = x_batch
-        x_pool_adv[ii*batch_size:(ii+1)*batch_size] = x_batch_adv
-        y_pool[ii * batch_size:(ii + 1) * batch_size] = y_batch
-    end = timer()
-    PGD_time = end - start
-    np.save('x_pool_adv', x_pool_adv)
-    np.save('x_pool_nat', x_pool_nat)
-    np.save('y_pool', y_pool)
+    if 0:
+        x_pool_nat = np.zeros((num_adv_batch*batch_size, 784))
+        x_pool_adv = np.zeros((num_adv_batch*batch_size, 784))
+        y_pool = np.zeros((num_adv_batch*batch_size))
+        start = timer()
+        for ii in tqdm(range(num_adv_batch)):
+            x_batch, y_batch = mnist.train.next_batch(batch_size)
+            x_batch_adv = attack.perturb(x_batch, y_batch, sess)
+            x_pool_nat[ii*batch_size:(ii+1)*batch_size] = x_batch
+            x_pool_adv[ii*batch_size:(ii+1)*batch_size] = x_batch_adv
+            y_pool[ii * batch_size:(ii + 1) * batch_size] = y_batch
+        end = timer()
+        PGD_time = end - start
+        np.save('x_pool_adv', x_pool_adv)
+        np.save('x_pool_nat', x_pool_nat)
+        np.save('y_pool', y_pool)
+    else:
+        x_pool_adv = np.load('x_pool_adv.npy')
+        x_pool_nat = np.load('x_pool_nat.npy')
+        y_pool = np.load('y_pool.npy')
     print('PGD adv gen done... ')
 
 
@@ -136,7 +141,9 @@ with tf.Session() as sess:
             start = timer()
 
             # train feature matching
-            fea_matching.apply(sess, x_pool_nat, x_pool_adv, tag_i)
+            x_batch_nat = x_pool_nat[ii*num_adv_batch:(ii+1)*num_adv_batch]
+            x_batch_adv = x_pool_adv[ii*num_adv_batch:(ii+1)*num_adv_batch]
+            fea_matching.apply(sess, x_batch_nat, x_batch_adv, tag_i)
 
             # monitor the accuracy
             if ii%100 == 0:
