@@ -141,8 +141,8 @@ with tf.Session() as sess:
             start = timer()
 
             # train feature matching
-            x_batch_nat = x_pool_nat[ii*num_adv_batch:(ii+1)*num_adv_batch]
-            x_batch_adv = x_pool_adv[ii*num_adv_batch:(ii+1)*num_adv_batch]
+            x_batch_nat = x_pool_nat[ii*batch_size:(ii+1)*batch_size]
+            x_batch_adv = x_pool_adv[ii*batch_size:(ii+1)*batch_size]
             fea_matching.apply(sess, x_batch_nat, x_batch_adv, tag_i)
 
             # monitor the accuracy
