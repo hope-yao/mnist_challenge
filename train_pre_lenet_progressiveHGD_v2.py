@@ -124,78 +124,79 @@ with tf.Session() as sess:
         np.save('x_pool_nat', x_pool_nat)
         np.save('y_pool', y_pool)
     else:
-        x_pool_adv = np.load('x_pool_adv.npy')
-        x_pool_nat = np.load('x_pool_nat.npy')
-        y_pool = np.load('y_pool.npy')
+        x_pool_adv = np.load('./mnist_adv_pool/x_pool_adv.npy')
+        x_pool_nat = np.load('./mnist_adv_pool/x_pool_nat.npy')
+        y_pool = np.load('./mnist_adv_pool/y_pool.npy')
     print('PGD adv gen done... ')
 
 
     # progressive feature matching
-    fea_matching = init_fea(sess, model, model_fix, distance_flag='L_inf')
+    fea_matching = init_fea(sess, model, model_fix, distance_flag='L_1')
     for i, tag_i in enumerate(fea_matching.tag_list):
         # layer by layer
-        for ii in range(num_adv_batch):
-            # over all adversarial adata
-            # if ii %100 == 0:
-            #     matching_time = 0
-            start = timer()
+        for adv_ep in range(5):
+            for ii in range(num_adv_batch):
+                # over all adversarial adata
+                # if ii %100 == 0:
+                #     matching_time = 0
+                start = timer()
 
-            # train feature matching
-            x_batch_nat = x_pool_nat[ii*batch_size:(ii+1)*batch_size]
-            x_batch_adv = x_pool_adv[ii*batch_size:(ii+1)*batch_size]
-            fea_matching.apply(sess, x_batch_nat, x_batch_adv, tag_i)
+                # train feature matching
+                x_batch_nat = x_pool_nat[ii*batch_size:(ii+1)*batch_size]
+                x_batch_adv = x_pool_adv[ii*batch_size:(ii+1)*batch_size]
+                fea_matching.apply(sess, x_batch_nat, x_batch_adv, tag_i)
 
-            # monitor the accuracy
-            if ii%100 == 0:
-                x_batch_nat, y_batch = mnist.train.next_batch(batch_size)
-                x_batch_adv = attack.perturb(x_batch, y_batch, sess)
-                nat_dict = {model.x_input: x_batch_nat,
-                            model.y_input: y_batch}
-                nat_acc = sess.run(model.accuracy, feed_dict=nat_dict)
-                adv_dict = {model.x_input: x_batch_adv,
-                            model.y_input: y_batch}
-                adv_acc = sess.run(model.accuracy, feed_dict=adv_dict)
-                print('layer {} Step {}:    ({})'.format(tag_i, ii, datetime.now()))
-                print('    training nat accuracy {:.4}%'.format(nat_acc * 100))
-                print('    training adv accuracy {:.4}%'.format(adv_acc * 100))
+                # monitor the accuracy
+                if ii%100 == 0:
+                    # x_batch_nat, y_batch = mnist.train.next_batch(batch_size)
+                    # x_batch_adv = attack.perturb(x_batch, y_batch, sess)
+                    nat_dict = {model.x_input: x_batch_nat,
+                                model.y_input: y_batch}
+                    nat_acc = sess.run(model.accuracy, feed_dict=nat_dict)
+                    adv_dict = {model.x_input: x_batch_adv,
+                                model.y_input: y_batch}
+                    adv_acc = sess.run(model.accuracy, feed_dict=adv_dict)
+                    print('layer {} Step {}:    ({})'.format(tag_i, ii, datetime.now()))
+                    print('    training nat accuracy {:.4}%'.format(nat_acc * 100))
+                    print('    training adv accuracy {:.4}%'.format(adv_acc * 100))
 
-                # monitor the loss
-                hinge_loss_value, match_loss_value = fea_matching.get_loss_value(sess, x_batch_nat, x_batch_adv)
-                hist_hinge_loss_value_conv1 += [hinge_loss_value['conv1']]
-                hist_hinge_loss_value_conv2 += [hinge_loss_value['conv2']]
-                hist_hinge_loss_value_fc1 += [hinge_loss_value['fc1']]
-                hist_hinge_loss_value_fc2 += [hinge_loss_value['fc2']]
-                hist_match_loss_value_conv1 += [match_loss_value['conv1']]
-                hist_match_loss_value_conv2 += [match_loss_value['conv2']]
-                hist_match_loss_value_fc1 += [match_loss_value['fc1']]
-                hist_match_loss_value_fc2 += [match_loss_value['fc2']]
-                print('    training conv1 hinge loss {:.4}'.format(hinge_loss_value['conv1']))
-                print('    training conv2 hinge loss {:.4}'.format(hinge_loss_value['conv2']))
-                print('    training fc1 hinge loss {:.4}'.format(hinge_loss_value['fc1']))
-                print('    training fc2 hinge loss {:.4}'.format(hinge_loss_value['fc2']))
-                print('    training conv1 match loss {:.4}'.format(match_loss_value['conv1']))
-                print('    training conv2 match loss {:.4}'.format(match_loss_value['conv2']))
-                print('    training fc1 match loss {:.4}'.format(match_loss_value['fc1']))
-                print('    training fc2 match loss {:.4}'.format(match_loss_value['fc2']))
-                np.save('fea_loss',{"conv1_match_loss": hist_match_loss_value_conv1,
-                                    "conv2_match_loss": hist_match_loss_value_conv2,
-                                    "fc1_match_loss": hist_match_loss_value_fc1,
-                                    "fc2_match_loss": hist_match_loss_value_fc2,
-                                    "conv1_hinge_loss": hist_hinge_loss_value_conv1,
-                                    "conv2_hinge_loss": hist_hinge_loss_value_conv2,
-                                    "fc1_hinge_loss": hist_hinge_loss_value_fc1,
-                                    "fc2_hinge_loss": hist_hinge_loss_value_fc2,
-                                    })
-            end = timer()
+                    # monitor the loss
+                    hinge_loss_value, match_loss_value = fea_matching.get_loss_value(sess, x_batch_nat, x_batch_adv)
+                    hist_hinge_loss_value_conv1 += [hinge_loss_value['conv1']]
+                    # hist_hinge_loss_value_conv2 += [hinge_loss_value['conv2']]
+                    # hist_hinge_loss_value_fc1 += [hinge_loss_value['fc1']]
+                    # hist_hinge_loss_value_fc2 += [hinge_loss_value['fc2']]
+                    hist_match_loss_value_conv1 += [match_loss_value['conv1']]
+                    # hist_match_loss_value_conv2 += [match_loss_value['conv2']]
+                    # hist_match_loss_value_fc1 += [match_loss_value['fc1']]
+                    # hist_match_loss_value_fc2 += [match_loss_value['fc2']]
+                    print('    training conv1 hinge loss {:.4}'.format(hinge_loss_value['conv1']))
+                    # print('    training conv2 hinge loss {:.4}'.format(hinge_loss_value['conv2']))
+                    # print('    training fc1 hinge loss {:.4}'.format(hinge_loss_value['fc1']))
+                    # print('    training fc2 hinge loss {:.4}'.format(hinge_loss_value['fc2']))
+                    print('    training conv1 match loss {:.4}'.format(match_loss_value['conv1']))
+                    # print('    training conv2 match loss {:.4}'.format(match_loss_value['conv2']))
+                    # print('    training fc1 match loss {:.4}'.format(match_loss_value['fc1']))
+                    # print('    training fc2 match loss {:.4}'.format(match_loss_value['fc2']))
+                    np.save('fea_loss',{"conv1_match_loss": hist_match_loss_value_conv1,
+                                        # "conv2_match_loss": hist_match_loss_value_conv2,
+                                        # "fc1_match_loss": hist_match_loss_value_fc1,
+                                        # "fc2_match_loss": hist_match_loss_value_fc2,
+                                        "conv1_hinge_loss": hist_hinge_loss_value_conv1,
+                                        # "conv2_hinge_loss": hist_hinge_loss_value_conv2,
+                                        # "fc1_hinge_loss": hist_hinge_loss_value_fc1,
+                                        # "fc2_hinge_loss": hist_hinge_loss_value_fc2,
+                                        })
+                end = timer()
 
 
-            # Tensorboard summaries
-            if ii % num_summary_steps == 0:
-              summary = sess.run(merged_summaries, feed_dict=adv_dict)
-              summary_writer.add_summary(summary, global_step.eval(sess))
-            # Write a checkpoint
-            if ii % num_checkpoint_steps == 0:
-              saver.save(sess,
-                         os.path.join(model_dir, 'checkpoint'),
-                         global_step=global_step)
+                # Tensorboard summaries
+                if ii % num_summary_steps == 0:
+                  summary = sess.run(merged_summaries, feed_dict=adv_dict)
+                  summary_writer.add_summary(summary, global_step.eval(sess))
+                # Write a checkpoint
+                if ii % num_checkpoint_steps == 0:
+                  saver.save(sess,
+                             os.path.join(model_dir, 'checkpoint'),
+                             global_step=global_step)
 

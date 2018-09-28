@@ -13,19 +13,32 @@ class FEA_MATCHING():
         self.hinge_loss = {}
         self.train_layer = {}
 
-        self.tag_list = ['conv1', 'conv2', 'fc1', 'fc2']
-        fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2, model_fix.h_fc1, model_fix.pre_softmax]
+        # self.tag_list = ['conv1', 'conv2', 'fc1', 'fc2']
+        # fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2, model_fix.h_fc1, model_fix.pre_softmax]
+        # fea_list = [model.h_conv1, model.h_conv2, model.h_fc1, model.pre_softmax]
+        # fea_var_list = [model.variable_conv1, model.variable_conv2, model.variable_fc1, model.variable_fc2]
+        self.tag_list = ['conv1']
+        fix_fea_list = [model_fix.h_conv1]
+        fea_list = [model.h_conv1]
+        fea_var_list = [model.variable_conv1]
+
         self.fix_fea_dict = dict(zip(self.tag_list, fix_fea_list))
-        fea_list = [model.h_conv1, model.h_conv2, model.h_fc1, model.pre_softmax]
         self.fea_dict = dict(zip(self.tag_list, fea_list))
-        fea_var_list = [model.variable_conv1, model.variable_conv2, model.variable_fc1, model.variable_fc2]
         self.fea_var_dict = dict(zip(self.tag_list, fea_var_list))
 
         for i, tag_i in enumerate(self.tag_list):
+            # clean and adversarial feature
             fea_nat, fea_adv = tf.split(self.fea_dict[tag_i], 2)
+            # hinge feature
             self.fea_nat_hinge[self.tag_list[i]] = fea_nat_hinge_i = tf.placeholder(tf.float32, fea_nat.get_shape().as_list(), name='fea_nat_hinge')
-            fea_nat_vec = tf.contrib.layers.flatten(fea_nat)
-            fea_adv_vec = tf.contrib.layers.flatten(fea_adv)
+            # matching network
+            with tf.variable_scope('matching_net_conv1') as scope:
+                fea_res = self.matching_net_conv1(self.fea_dict[tag_i])
+                self.fea_var_dict[tag_i] += tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='matching_net_conv1')
+            fea_nat_res, fea_adv_res = tf.split(fea_res, 2)
+
+            fea_nat_vec = tf.contrib.layers.flatten(fea_nat+fea_nat_res)
+            fea_adv_vec = tf.contrib.layers.flatten(fea_adv + fea_adv_res)
             fea_nat_hinge_vec = tf.contrib.layers.flatten(fea_nat_hinge_i)
             match_loss, hinge_loss = self.get_loss(fea_nat_vec, fea_adv_vec, fea_nat_hinge_vec, distance_flag)
             loss = self.alpha * tf.reduce_mean(match_loss) + tf.reduce_mean(hinge_loss)
@@ -33,6 +46,11 @@ class FEA_MATCHING():
             self.match_loss[self.tag_list[i]] = match_loss
             self.hinge_loss[self.tag_list[i]] = hinge_loss
             self.train_layer[self.tag_list[i]] = train_layer
+
+    def matching_net_conv1(self, x):
+        h1 = tf.contrib.slim.conv2d(x, 32, [3,3])
+        h2 = tf.contrib.slim.conv2d(h1, 32, [3,3])
+        return h2
 
     def get_loss(self, fea_nat, fea_adv, fea_nat_hinge, distance_flag):
         if distance_flag=='cosine':
