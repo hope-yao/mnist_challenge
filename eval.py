@@ -38,7 +38,7 @@ mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 if eval_on_cpu:
     with tf.device("/cpu:0"):
         with tf.name_scope('model_rob') as scope:
-            model = Model(fea_dim)
+            model = Model(fea_dim, denoiser_flag='resnet')
             attack = LinfPGDAttack(model,
                                    config['epsilon'],
                                    config['k'],
@@ -47,7 +47,7 @@ if eval_on_cpu:
                                    config['loss_func'])
 else:
     with tf.name_scope('model_rob') as scope:
-        model = Model(fea_dim)
+        model = Model(fea_dim, denoiser_flag='resnet')
         attack = LinfPGDAttack(model,
                             config['epsilon'],
                             config['k'],

@@ -8,26 +8,37 @@ from __future__ import print_function
 
 import tensorflow as tf
 
+from fea_matching import identical_matching_net_conv1, identical_matching_net_conv2
+
 class Model(object):
-  def __init__(self, fea_dim):
+  def __init__(self, fea_dim, denoiser_flag=None):
     self.x_input = tf.placeholder(tf.float32, shape = [None, 784])
     self.y_input = tf.placeholder(tf.int64, shape = [None])
-
     self.x_image = tf.reshape(self.x_input, [-1, 28, 28, 1])
 
     # first convolutional layer
     W_conv1 = self._weight_variable([5,5,1,32], name='W_conv1')
     b_conv1 = self._bias_variable([32], name='b_conv1')
     self.variable_conv1 = [W_conv1, b_conv1]
-    self.h_conv1 = h_conv1 = tf.nn.relu(self._conv2d(self.x_image, W_conv1) + b_conv1)
-    h_pool1 = self._max_pool_2x2(h_conv1)
+    self.h_conv1 = tf.nn.relu(self._conv2d(self.x_image, W_conv1) + b_conv1)
+    if denoiser_flag=='resnet':
+      with tf.variable_scope('matching_net_conv1') as scope:
+        self.conv1_res = identical_matching_net_conv1(self.h_conv1)
+        self.h_conv1 += self.conv1_res
+        self.variable_conv1_denoiser = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='model_rob/matching_net_conv1')
+    h_pool1 = self._max_pool_2x2(self.h_conv1)
 
     # second convolutional layer
     W_conv2 = self._weight_variable([5,5,32,64], name='W_conv2')
     b_conv2 = self._bias_variable([64], name='b_conv2')
     self.variable_conv2 = [W_conv2, b_conv2]
-    self.h_conv2 = h_conv2 = tf.nn.relu(self._conv2d(h_pool1, W_conv2) + b_conv2)
-    h_pool2 = self._max_pool_2x2(h_conv2)
+    self.h_conv2 = tf.nn.relu(self._conv2d(h_pool1, W_conv2) + b_conv2)
+    if denoiser_flag=='resnet':
+      with tf.variable_scope('matching_net_conv2') as scope:
+        self.conv2_res = identical_matching_net_conv2(self.h_conv2)
+        self.h_conv2 += self.conv2_res
+        self.variable_conv2_denoiser = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='model_rob/matching_net_conv2')
+    h_pool2 = self._max_pool_2x2(self.h_conv2)
 
     # first fully connected layer
     W_fc1 = self._weight_variable([7 * 7 * 64, fea_dim], name='W_fc1')
@@ -54,6 +65,9 @@ class Model(object):
     self.num_correct = tf.reduce_sum(tf.cast(correct_prediction, tf.int64))
     self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     self.all_variables = self.variable_conv1 + self.variable_conv2 + self.variable_fc1 + self.variable_fc2
+    if denoiser_flag:
+        self.all_variables += self.variable_conv1_denoiser
+        self.all_variables += self.variable_conv2_denoiser
 
   def copy(self, sess, model):
     for i in range(2):
