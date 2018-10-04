@@ -85,14 +85,14 @@ class FEA_MATCHING():
         self.hinge_loss = {}
         self.train_layer = {}
 
-        # self.tag_list = ['conv1', 'conv2', 'fc1', 'fc2']
-        # fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2, model_fix.h_fc1, model_fix.pre_softmax]
-        # fea_list = [model.h_conv1, model.h_conv2, model.h_fc1, model.pre_softmax]
-        # fea_var_list = [model.variable_conv1, model.variable_conv2, model.variable_fc1, model.variable_fc2]
-        self.tag_list = ['conv1', 'conv2']
-        fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2]
-        fea_list = [model.h_conv1, model.h_conv2]
-        fea_var_list = [model.variable_conv1, model.variable_conv2]
+        self.tag_list = ['conv1', 'conv2', 'fc1', 'fc2']
+        fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2, model_fix.h_fc1, model_fix.pre_softmax]
+        fea_list = [model.h_conv1, model.h_conv2, model.h_fc1, model.pre_softmax]
+        fea_var_list = [model.variable_conv1, model.variable_conv2, model.variable_fc1, model.variable_fc2]
+        # self.tag_list = ['conv1', 'conv2']
+        # fix_fea_list = [model_fix.h_conv1, model_fix.h_conv2]
+        # fea_list = [model.h_conv1, model.h_conv2]
+        # fea_var_list = [model.variable_conv1, model.variable_conv2]
 
         self.fix_fea_dict = dict(zip(self.tag_list, fix_fea_list))
         self.fea_dict = dict(zip(self.tag_list, fea_list))
@@ -125,7 +125,7 @@ class FEA_MATCHING():
 
             # loss = self.alpha * tf.reduce_mean(match_loss) + tf.reduce_mean(hinge_loss) #*1000
             loss = self.alpha * tf.reduce_mean(self.xent_adv) + tf.reduce_mean(self.xent_nat) #*1000
-            train_layer = tf.train.AdamOptimizer(2e-5).minimize(loss,var_list=self.fea_var_dict[tag_i])
+            train_layer = tf.train.AdamOptimizer(1e-4).minimize(loss,var_list=self.fea_var_dict[tag_i])
             self.train_layer[self.tag_list[i]] = train_layer
 
     def get_loss_xent(self, logits_adv, logits_nat, label):
@@ -172,7 +172,7 @@ class FEA_MATCHING():
         fea_dict = {self.model_input: np.concatenate([x_batch_nat, x_batch_adv], 0),
                     self.fea_nat_hinge[tag_i]: nat_fea_fix,
                     self.label: y_batch}
-        for i in range(5):
+        for i in range(1):
             sess.run(self.train_layer[tag_i], fea_dict)
 
     def get_loss_value(self, sess, x_batch, x_batch_adv, y_batch):

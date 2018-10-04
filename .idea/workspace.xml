@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85332cc7-8d3f-4146-96f3-b8362a30506a" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v3.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/config.json" afterPath="$PROJECT_DIR$/config.json" />
-      <change beforePath="$PROJECT_DIR$/eval.py" afterPath="$PROJECT_DIR$/eval.py" />
       <change beforePath="$PROJECT_DIR$/fea_matching.py" afterPath="$PROJECT_DIR$/fea_matching.py" />
-      <change beforePath="$PROJECT_DIR$/model_madry.py" afterPath="$PROJECT_DIR$/model_madry.py" />
-      <change beforePath="$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v2.py" afterPath="$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v2.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="train_pre_lenet_progressiveHGD_v2.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="train_pre_lenet_progressiveHGD_v2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="180" column="0" lean-forward="true" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+            <state relative-caret-position="389">
+              <caret line="173" column="11" lean-forward="false" selection-start-line="173" selection-start-column="11" selection-end-line="173" selection-end-column="11" />
               <folding>
                 <element signature="e#85#123#0" expanded="true" />
               </folding>
@@ -33,21 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="eval.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eval.py">
+      <file leaf-file-name="train_pre_lenet_progressiveHGD.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1310">
-              <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+            <state relative-caret-position="381">
+              <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="173" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fea_matching.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fea_matching.py">
+      <file leaf-file-name="train_pre_lenet_progressiveHGD_v3.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="174" column="24" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="24" />
+            <state relative-caret-position="384">
+              <caret line="146" column="34" lean-forward="true" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -56,11 +53,41 @@
       <file leaf-file-name="model_madry.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model_madry.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="64" column="53" lean-forward="false" selection-start-line="64" selection-start-column="53" selection-end-line="64" selection-end-column="53" />
+            <state relative-caret-position="128">
+              <caret line="13" column="34" lean-forward="false" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
               <folding>
                 <element signature="e#109#147#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fea_matching.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fea_matching.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="392">
+              <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="500">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="eval.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/eval.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -71,18 +98,6 @@
             <state relative-caret-position="275">
               <caret line="57" column="21" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="monitor_act.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/monitor_act.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding>
-                <element signature="e#1170#1191#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -118,11 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fea_matching</find>
-      <find>s</find>
-      <find>fix_fea_dict</find>
-      <find>fea</find>
-      <find>Session</find>
       <find>matching_net_conv1</find>
       <find>_fix</find>
       <find>fea_var_dict</find>
@@ -142,12 +152,17 @@
       <find>train_layer</find>
       <find>hinge_loss_val</find>
       <find>model</find>
-      <find>saver</find>
       <find>train_step</find>
       <find>global_step</find>
-      <find>num_correct</find>
       <find>50</find>
+      <find>num_adv_batch</find>
       <find>attack</find>
+      <find>resnet</find>
+      <find>training xent_nat</find>
+      <find>x_batch</find>
+      <find>res</find>
+      <find>saver</find>
+      <find>num_correct</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -169,6 +184,7 @@
         <option value="$PROJECT_DIR$/config.json" />
         <option value="$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v2.py" />
         <option value="$PROJECT_DIR$/fea_matching.py" />
+        <option value="$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v3.py" />
       </list>
     </option>
   </component>
@@ -235,7 +251,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.eval">
+  <component name="RunManager" selected="Python.train_pre_lenet_progressiveHGD_v3">
     <configuration name="eval" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -249,24 +265,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="mnist_challenge" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/eval.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="mnist_challenge" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -308,6 +306,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="train_pre_lenet_progressiveHGD_v3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="mnist_challenge" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="train_progressive_hgd" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -327,19 +343,19 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.train" />
-      <item index="1" class="java.lang.String" itemvalue="Python.train_progressive_hgd" />
-      <item index="2" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD" />
-      <item index="3" class="java.lang.String" itemvalue="Python.eval" />
-      <item index="4" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD_v2" />
+      <item index="0" class="java.lang.String" itemvalue="Python.train_progressive_hgd" />
+      <item index="1" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD" />
+      <item index="2" class="java.lang.String" itemvalue="Python.eval" />
+      <item index="3" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD_v2" />
+      <item index="4" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD_v3" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD_v2" />
+        <item index="0" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD_v3" />
         <item index="1" class="java.lang.String" itemvalue="Python.eval" />
-        <item index="2" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD" />
-        <item index="3" class="java.lang.String" itemvalue="Python.train_progressive_hgd" />
-        <item index="4" class="java.lang.String" itemvalue="Python.train" />
+        <item index="2" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD_v2" />
+        <item index="3" class="java.lang.String" itemvalue="Python.train_pre_lenet_progressiveHGD" />
+        <item index="4" class="java.lang.String" itemvalue="Python.train_progressive_hgd" />
       </list>
     </recent_temporary>
   </component>
@@ -476,7 +492,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538153314061</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="progressive training with static pool updated every 10 epoch. seems to be more robust towards black box attack, but not robust at all towards white box">
+      <created>1538593448830</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1538593448831</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView">
@@ -492,17 +515,17 @@
     <frame x="1984" y="-4" width="1857" height="1085" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20382513" sideWeight="0.7063953" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1704918" sideWeight="0.7063953" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32968128" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40139443" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31075698" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39243028" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42231077" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32868525" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14754099" sideWeight="0.29360464" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41334662" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41334662" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -552,7 +575,8 @@
     <MESSAGE value="layer wise training with same adversary" />
     <MESSAGE value="get a pool of adversaries to train" />
     <MESSAGE value="added extra layers for feature matching" />
-    <option name="LAST_COMMIT_MESSAGE" value="added extra layers for feature matching" />
+    <MESSAGE value="progressive training with static pool updated every 10 epoch. seems to be more robust towards black box attack, but not robust at all towards white box" />
+    <option name="LAST_COMMIT_MESSAGE" value="progressive training with static pool updated every 10 epoch. seems to be more robust towards black box attack, but not robust at all towards white box" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -561,11 +585,6 @@
           <url>file://$PROJECT_DIR$/train.py</url>
           <line>77</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fea_matching.py</url>
-          <line>100</line>
-          <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/eval.py</url>
@@ -645,14 +664,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/fea_matching.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="61" column="69" lean-forward="true" selection-start-line="61" selection-start-column="69" selection-end-line="78" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -832,14 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/ops/linalg_ops.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="329">
@@ -905,14 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-408">
-          <caret line="112" column="28" lean-forward="false" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tqdm/_tqdm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
@@ -950,7 +945,7 @@
         <state relative-caret-position="360">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
-            <element signature="e#1170#1191#0" expanded="true" />
+            <element signature="e#1170#1191#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -987,28 +982,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model_madry.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="64" column="53" lean-forward="false" selection-start-line="64" selection-start-column="53" selection-end-line="64" selection-end-column="53" />
-          <folding>
-            <element signature="e#109#147#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pgd_attack.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="469">
           <caret line="39" column="30" lean-forward="false" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eval.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1310">
-          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1021,21 +998,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fea_matching.py">
+    <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="174" column="24" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="24" />
+        <state relative-caret-position="500">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="180" column="0" lean-forward="true" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+        <state relative-caret-position="389">
+          <caret line="173" column="11" lean-forward="false" selection-start-line="173" selection-start-column="11" selection-end-line="173" selection-end-column="11" />
           <folding>
             <element signature="e#85#123#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="173" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model_madry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="13" column="34" lean-forward="false" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
+          <folding>
+            <element signature="e#109#147#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fea_matching.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eval.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_pre_lenet_progressiveHGD_v3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="146" column="34" lean-forward="true" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
