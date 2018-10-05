@@ -203,14 +203,14 @@ with tf.Session() as sess:
 
 
                 ######## testing error
-                x_batch_nat, y_batch = mnist.test.next_batch(batch_size)
-                x_batch_adv = attack_denoiser.perturb(x_batch_nat, y_batch, sess)
-                nat_dict = {model.x_input: x_batch_nat,
-                            model.y_input: y_batch}
+                x_batch_nat_test, y_batch_test = mnist.test.next_batch(batch_size)
+                x_batch_adv_test = attack_denoiser.perturb(x_batch_nat_test, y_batch_test, sess)
+                nat_dict = {model.x_input: x_batch_nat_test,
+                            model.y_input: y_batch_test}
                 nat_acc = sess.run(model.accuracy, feed_dict=nat_dict)
                 hist_nat_acc += [nat_acc]
-                adv_dict = {model.x_input: x_batch_adv,
-                            model.y_input: y_batch}
+                adv_dict = {model.x_input: x_batch_adv_test,
+                            model.y_input: y_batch_test}
                 adv_acc = sess.run(model.accuracy, feed_dict=adv_dict)
                 hist_adv_acc += [adv_acc]
                 print('Step {}:    ({})'.format(ii, datetime.now()))
@@ -219,16 +219,13 @@ with tf.Session() as sess:
 
                 if 1:
                     # monitor cross-entropy
-                    hinge_loss_value, match_loss_value, nat_fea_fix_value = fea_matching.get_loss_value(sess, x_batch_nat, x_batch_adv, y_batch)
-                    fea_dict = {model.x_input: np.concatenate([x_batch_nat, x_batch_adv], 0),
+                    hinge_loss_value, match_loss_value, nat_fea_fix_value = fea_matching.get_loss_value(sess, x_batch_nat_test, x_batch_adv_test, y_batch)
+                    fea_dict = {model.x_input: np.concatenate([x_batch_nat_test, x_batch_adv_test], 0),
                                 fea_matching.label: y_batch}
                     xent_nat_val, xent_adv_val = sess.run([fea_matching.xent_nat, fea_matching.xent_adv], fea_dict)
                     print('    test xent_nat {:.4}'.format(xent_nat_val))
                     print('    test xent_adv {:.4}'.format(xent_adv_val))
 
-                # monitor the loss
-                x_batch_nat_test, y_batch_test = mnist.test.next_batch(batch_size)
-                x_batch_adv_test = attack.perturb(x_batch_nat_test, y_batch_test, sess)
                 hinge_loss_value, match_loss_value, nat_fea_fix_value = fea_matching.get_loss_value(sess,
                                                                                                     x_batch_nat_test,
                                                                                                     x_batch_adv_test,
@@ -266,4 +263,4 @@ with tf.Session() as sess:
         if ii % num_checkpoint_steps == 0:
           saver.save(sess,
                      os.path.join(model_dir, 'checkpoint'),
-                     global_step=global_step)
+                     global_step=ii)
